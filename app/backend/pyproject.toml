@@ -19,6 +19,7 @@ dependencies = [
     "agent-framework-foundry==1.0.0",
     "agent-framework-orchestrations==1.0.0b260402",
     "agent-framework-chatkit==1.0.0b260402",
+    "mcp==1.25.0",
     "openai-chatkit==1.6.3",
     "aiohttp==3.13.5",
     "azure-monitor-opentelemetry",

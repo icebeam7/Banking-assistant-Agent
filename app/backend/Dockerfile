@@ -12,10 +12,10 @@ RUN pip install --no-cache-dir pipx \
 ENV PATH="/root/.local/bin:$PATH"
 
 
-# Install pinned dependencies using uv pip
+# Install dependencies exactly as resolved in uv.lock
 COPY pyproject.toml ./
 COPY uv.lock ./
-RUN uv pip install --system -r pyproject.toml --prerelease=allow
+RUN uv sync --frozen --no-dev --no-install-project
 
 # Copy application code
 COPY app ./app
@@ -24,7 +24,7 @@ COPY app ./app
 EXPOSE 8080
 
 #un-comment/comment the CMD line below to enable/disable chatkit server integration. This will work using banking-web as frontend. Go to azure.yaml and make sure simple-chat frontend is commented out.
-CMD ["uvicorn", "app.main_chatkit_server:app", "--host", "0.0.0.0", "--port", "8080"]
+CMD [".venv/bin/uvicorn", "app.main_chatkit_server:app", "--host", "0.0.0.0", "--port", "8080"]
 
 #un-comment/comment the CMD line below to enable/disable starting app with custom chat server implementation. This will require app/frontend/simple-chat as frontend. Go to azure.yaml and make sure banking-web frontend is commented out.
-#CMD ["uvicorn", "app.main_handoff:app", "--host", "0.0.0.0", "--port", "8080"]
+#CMD [".venv/bin/uvicorn", "app.main_handoff:app", "--host", "0.0.0.0", "--port", "8080"]
